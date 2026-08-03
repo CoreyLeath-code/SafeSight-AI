@@ -49,15 +49,24 @@ def test_predict_empty_file_returns_400():
     assert response.status_code == 400
 
 
-def test_predict_valid_image_returns_200():
-    """POST /predict with a valid JPEG should return 200 with a risk_level."""
+def test_predict_valid_image_fails_closed_without_model():
+    """A valid image must not receive a fabricated low-risk safety classification."""
     jpeg_bytes = _make_jpeg_bytes()
     response = client.post(
         "/predict",
         files={"file": ("test.jpg", io.BytesIO(jpeg_bytes), "image/jpeg")},
     )
-    assert response.status_code == 200
-    data = response.json()
-    assert "risk_level" in data
-    assert data["risk_level"] in {"LOW", "MEDIUM", "HIGH"}
 
+    assert response.status_code == 503
+    assert response.json()["detail"] == "Safety model is unavailable."
+
+
+
+def test_predict_invalid_image_bytes_return_422():
+    response = client.post(
+        "/predict",
+        files={"file": ("spoofed.jpg", io.BytesIO(b"not an image"), "image/jpeg")},
+    )
+
+    assert response.status_code == 422
+    assert response.json()["detail"] == "Uploaded file is not a valid image."
