@@ -127,7 +127,7 @@ Failure modes were explicitly considered:
 | Failure | Mitigation |
 |------|-----------|
 | Invalid image input | Input validation |
-| Model load failure | Startup checks |
+| Model unavailable | HTTP 503 from `/predict` | No image is labeled LOW unless a verified model is available |
 | Slow inference | API timeouts |
 | UI outage | API remains available |
 | Model uncertainty | Risk defaults to LOW |
