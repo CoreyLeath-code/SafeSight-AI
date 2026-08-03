@@ -3,7 +3,7 @@ import logging
 
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.responses import JSONResponse
-from api.inference import predict
+from api.inference import ModelUnavailableError, predict
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +56,12 @@ async def predict_route(file: UploadFile = File(...)) -> JSONResponse:
 
     try:
         result = predict(contents)
+    except ValueError as exc:
+        logger.info("Rejected invalid image data: %s", exc)
+        raise HTTPException(status_code=422, detail="Uploaded file is not a valid image.") from exc
+    except ModelUnavailableError as exc:
+        logger.warning("Inference unavailable: %s", exc)
+        raise HTTPException(status_code=503, detail="Safety model is unavailable.") from exc
     except Exception as exc:
         logger.exception("Inference failed: %s", exc)
         raise HTTPException(status_code=500, detail="Inference failed.") from exc

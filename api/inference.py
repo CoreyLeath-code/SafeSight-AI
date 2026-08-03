@@ -8,6 +8,11 @@ from PIL import Image
 logger = logging.getLogger(__name__)
 
 
+class ModelUnavailableError(RuntimeError):
+    """Raised when no verified safety model is available for inference."""
+
+
+
 def run_inference(image_tensor: Any, model: Any) -> Any:
     """Run model inference on a pre-processed image tensor.
 
@@ -25,9 +30,8 @@ def run_inference(image_tensor: Any, model: Any) -> Any:
 def predict(image_bytes: bytes) -> Dict[str, Any]:
     """Accept raw image bytes and return a risk prediction dictionary.
 
-    Opens and validates the image with Pillow, then returns a default
-    LOW-risk response.  Replace this stub with a real model pipeline
-    when an ML model is available.
+    Opens and validates the image with Pillow. A safety classification is never
+    fabricated when no verified model artifact is available.
 
     Args:
         image_bytes: Raw bytes of the uploaded image file.
@@ -44,5 +48,5 @@ def predict(image_bytes: bytes) -> Dict[str, Any]:
     except Exception as exc:
         raise ValueError(f"Invalid image data: {exc}") from exc
 
-    logger.info("Inference stub: returning default LOW risk level.")
-    return {"risk_level": "LOW", "confidence": 0.0}
+    logger.warning("Inference requested without a verified safety model.")
+    raise ModelUnavailableError("No verified safety model is available.")
