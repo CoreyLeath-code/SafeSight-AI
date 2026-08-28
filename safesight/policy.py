@@ -8,11 +8,11 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 from typing import Sequence
 
 
-class RiskLevel(StrEnum):
+class RiskLevel(str, Enum):
     """Policy labels emitted by :class:`RiskPolicy`."""
 
     LOW = "LOW"
@@ -78,5 +78,8 @@ class RiskPolicy:
         """
         if not predictions or not predictions[0]:
             raise ValueError("predictions must contain at least one score")
-        scores = [self._validate_probability(value, "prediction score") for value in predictions[0]]
+        scores = [
+            self._validate_probability(value, "prediction score")
+            for value in predictions[0]
+        ]
         return self.classify(max(scores))
