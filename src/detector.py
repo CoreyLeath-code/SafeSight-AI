@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import math
 import os
-from typing import Any, Dict, List
+from typing import Any
 
 
 _SYNTHETIC_EVENTS: tuple[dict[str, Any], ...] = (
@@ -30,6 +30,6 @@ class SafetyDetector:
             raise ValueError("DETECTION_THRESHOLD must be a finite number in [0, 1]")
         self.threshold = threshold
 
-    def run_detection(self) -> List[Dict[str, Any]]:
+    def run_detection(self) -> list[dict[str, Any]]:
         """Return copies of synthetic events meeting the configured threshold."""
         return [dict(event) for event in _SYNTHETIC_EVENTS if event["risk"] >= self.threshold]
