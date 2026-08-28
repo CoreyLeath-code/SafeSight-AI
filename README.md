@@ -1,316 +1,361 @@
-# 🛡️ SafeSight AI — Production-Grade AI Safety System
-
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-API-green.svg)](https://fastapi.tiangolo.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg)](https://streamlit.io/)
-[![CUDA](https://img.shields.io/badge/NVIDIA-CUDA-76B900.svg)](https://developer.nvidia.com/cuda-zone)
-[![Docker](https://img.shields.io/badge/Docker-Containerized-blue.svg)](https://www.docker.com/)
-[![CI](https://img.shields.io/badge/GitHub-Actions-black.svg)](https://github.com/features/actions)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-[![SafeSight-AI Repo](https://github-readme-stats.vercel.app/api/pin/?username=Trojan3877&repo=SafeSight-AI&theme=radical)](https://github.com/Trojan3877/SafeSight-AI)
-
- SafeSight-AI 🚨
-**Production-Grade Computer Vision Risk Detection System**
-
-SafeSight-AI is an end-to-end AI system designed to detect safety risks using computer vision.  
-Built with **TensorFlow**, **Flask**, **Docker**, and **Streamlit**, it demonstrates enterprise-grade AI engineering practices.
-
-
-
- System Architecture
-Streamlit UI → Flask API → TensorFlow Inference → Risk Engine
-
-
-
-Core Features
-- TensorFlow CV inference
-- RESTful Flask API
-- Human-in-the-loop Streamlit dashboard
-- Dockerized microservices
-- CI-validated testing pipeline
-
-
- Run Locally
-```bash
-docker compose -f docker/docker-compose.yml up --build
-
-UI: http://localhost:8501
-API: http://localhost:8000
-Testing
-
-Bash
-pytest tests/
-Engineering Highlights
-Separation of concerns (UI / API / ML)
-Risk scoring abstraction
-CI-validated builds
-Production-ready Docker setup
- Future Roadmap
-Real-time video ingestion
-Model versioning & A/B testing
-Edge deployment (Jetson / iOS)
-Observability metrics
-
-Why was this system built?
-
-**SafeSight-AI** was designed to demonstrate how a computer vision model can be **safely operationalized** in a real-world environment — not just trained.
-
-The goal is to show:
-- How AI decisions are exposed via APIs
-- How humans stay in the loop
-- How risk is abstracted away from raw model outputs
-- How the system can evolve safely over time
-
-This reflects **production AI**, not academic experimentation.
-
-
-
-Why separate Flask (API) and Streamlit (UI)?
-
-This is an intentional **separation of concerns**:
-
-- **Flask API**
-  - Handles inference
-  - Owns model lifecycle
-  - Enforces validation and reliability
-- **Streamlit UI**
-  - Visualization and interaction
-  - Human-in-the-loop decision making
-  - Zero impact on inference performance
-
-This mirrors real enterprise deployments where:
-- Models are services
-- UIs are clients
-- Teams can scale independently
-
-
-Why not embed the model directly in Streamlit?
-
-Embedding inference directly in Streamlit:
-- Couples UI to ML logic
-- Makes scaling difficult
-- Breaks API-first design
-- Complicates monitoring and security
-
-By keeping inference behind Flask:
-- The model becomes reusable
-- The UI can be replaced or expanded
-- External systems can integrate safely
-
-This is a **senior engineering design choice**.
-
-
-
-What is the Risk Engine and why is it separate?
-
-Raw model predictions are **not decisions**.
-
-The **Risk Engine**:
-- Translates probabilities into business-safe categories
-- Encapsulates thresholds and logic
-- Allows policy changes without retraining models
-
-This abstraction enables:
-- Regulatory changes
-- Domain tuning
-- Explainability
-
-Separating *prediction* from *decision* is a hallmark of **mature AI systems**.
-
-
-
-How does this system handle failures?
-
-Failure modes were explicitly considered:
-
-| Failure | Mitigation |
-|------|-----------|
-| Invalid image input | Input validation |
-| Model unavailable | HTTP 503 from `/predict` | No image is labeled LOW unless a verified model is available |
-| Slow inference | API timeouts |
-| UI outage | API remains available |
-| Model uncertainty | Risk defaults to LOW |
-
-Graceful degradation is **required** in safety-adjacent systems.
-
-
-
-How would this scale in production?
-
-SafeSight-AI is designed to scale horizontally:
-
-- Flask API behind a load balancer
-- Docker containers for reproducibility
-- Stateless inference workers
-- Streamlit as a thin client
-
-Future scaling paths:
-- Kubernetes (HPA)
-- GPU-backed inference nodes
-- Async inference queues (Kafka / PubSub)
-
-
-
-How do you test an AI system like this?
-
-Testing occurs at **multiple layers**:
-
-- **Unit tests**
-  - Risk engine logic
-  - Utility functions
-- **Integration tests**
-  - API endpoints
-  - Request/response contracts
-- **End-to-end tests**
-  - UI → API → inference flow
-
-This layered strategy prevents silent failures and regressions.
-
-
- How is model quality evaluated?
-
-Model evaluation is **decoupled** from deployment.
-
-Typical metrics include:
-- Confidence distributions
-- False positive rates
-- Latency per inference
-- Memory and CPU usage
-
-This allows:
-- Model upgrades without UI changes
-- A/B testing
-- Rollbacks when performance degrades
-
-
-
- Why Docker?
-
-Docker ensures:
-- Environment parity
-- Reproducible builds
-- Easy onboarding
-- CI/CD compatibility
-
-Multi-service Docker Compose reflects:
-- Real microservice workflows
-- Clear ownership boundaries
-- Deployment realism
-
-This is expected at **senior engineering levels**.
-
-
-
- How does this system address AI safety?
-
-AI safety is addressed via:
-- Human-in-the-loop review
-- Conservative risk thresholds
-- Clear separation of inference vs decisions
-- Transparent outputs (no black-box actions)
-
-SafeSight-AI does **not automate enforcement** — it informs humans.
-
-
-
- What would you improve next?
-
-Planned roadmap items:
-- Real-time video stream ingestion
-- Model version registry
-- Observability dashboards
-- Edge-device deployment
-- A/B testing for risk thresholds
-
-These improvements build on the existing architecture without redesign.
-
-
-
- What engineering level does this project represent?
-
-This project demonstrates:
-- L4/L5 implementation skill
-- **L7/L8 architectural thinking**
-- Production awareness
-- AI safety considerations
-
-It was intentionally designed to reflect **staff-level judgment**, not just working code.
-
-
-
- How should recruiters or interviewers evaluate this repo?
-
-Reviewers should focus on:
-- Architecture decisions
-- Separation of concerns
-- Risk abstraction
-- Deployment realism
-- Documentation quality
-
-The value is in **how the system is designed**, not just the model.
-
-
- Summary
-
-SafeSight-AI is not a demo.
-
-It is a **production-oriented AI system** that shows how:
-- ML models become services
-- Humans stay in control
-- AI systems scale responsibly
-
-This reflects how AI is built in **real engineering organizations**.
-
-
-👨‍💻 Author
-Corey Leath
-AI / ML Engineer | Computer Vision | MLOps
-
-## Production Readiness Guide
-
-> This section is the portfolio audit entry point for **SafeSight-AI**. It describes an engineering promotion path; it is not a claim that the repository is already production-authorized.
-
-[![CI](https://img.shields.io/github/actions/workflow/status/CoreyLeath-code/SafeSight-AI/ci.yml?branch=main&label=CI)](https://github.com/CoreyLeath-code/SafeSight-AI/actions) [![License](https://img.shields.io/github/license/CoreyLeath-code/SafeSight-AI)](https://github.com/CoreyLeath-code/SafeSight-AI/blob/main/LICENSE)
-
-### Architecture flowchart
+# SafeSight AI — Evidence-Bounded Safety Policy & Image Validation API
+
+[![CI](https://github.com/CoreyLeath-code/SafeSight-AI/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/CoreyLeath-code/SafeSight-AI/actions/workflows/ci.yml?query=branch%3Amain)
+[![CodeQL](https://github.com/CoreyLeath-code/SafeSight-AI/actions/workflows/codeql.yml/badge.svg?branch=main&event=push)](https://github.com/CoreyLeath-code/SafeSight-AI/actions/workflows/codeql.yml?query=branch%3Amain)
+[![Release](https://img.shields.io/github/v/release/CoreyLeath-code/SafeSight-AI?display_name=tag&sort=semver)](https://github.com/CoreyLeath-code/SafeSight-AI/releases/latest)
+[![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![Coverage](https://img.shields.io/badge/coverage-96.24%25-2ea44f?logo=pytest&logoColor=white)](METRICS.md)
+[![License](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
+[![GHCR](https://img.shields.io/badge/GHCR-safesight--ai-2496ED?logo=docker&logoColor=white)](https://github.com/CoreyLeath-code/SafeSight-AI/pkgs/container/safesight-ai)
+
+SafeSight AI v0.1.0 is a **safety-adjacent software engineering reference implementation**, not a validated computer-vision safety product. The release-supported surface provides a FastAPI boundary for bounded image uploads, image decoding/validation, explicit liveness/readiness semantics, and a deterministic risk-policy module for already-produced confidence scores.
+
+> **Evidence boundary:** v0.1.0 intentionally ships **without a reviewed safety model artifact or versioned evaluation dataset**. `/predict` therefore fails closed with HTTP `503` after a valid image is accepted and decoded. The repository does not claim validated CV accuracy, real-world safety effectiveness, GPU/CUDA inference, production capacity, or live LLM-backed risk analysis.
+
+## What is implemented and verified
+
+| Surface | v0.1.0 contract |
+|---|---|
+| API | FastAPI `/health`, `/ready`, and `/predict` endpoints |
+| Upload safety | content-type allowlist, bounded read, empty/oversize rejection, decoded-image verification |
+| Model readiness | explicit `503 verified_model_unavailable` because no verified model ships |
+| Risk policy | validated finite `[0,1]` inputs, configurable medium/high thresholds, deterministic LOW/MEDIUM/HIGH mapping |
+| Legacy detector | deterministic synthetic fixture only; threshold is validated and enforced; **not CV inference** |
+| CI | Python 3.10/3.11/3.12, compile/lint, tests, 85% fail-closed coverage gate |
+| Packaging | wheel + sdist build and fresh-environment wheel install smoke test |
+| Container | non-root FastAPI image with health check and CI smoke tests |
+| Security | CodeQL analysis |
+| Reproducibility | fixed-seed policy benchmark with protocol, environment, latency distribution, throughput, memory, and JSON artifact |
+| Release | Python distributions, source archive, benchmark JSON, SHA-256 checksums, CycloneDX SBOM, GitHub Release, GHCR image |
+
+Validated CI run `33200052693` passed **50 tests on Python 3.10, 3.11, and 3.12**, measured **96.24% coverage** of the canonical `safesight` package, built/installed the wheel, generated benchmark evidence, built the container, verified `/health` returns 200 and `/ready` returns 503, and completed CodeQL successfully.
+
+## Architecture flowchart
 
 ```mermaid
 flowchart LR
-    Client --> Gateway --> Services[API + workers] --> Events[(Event bus)] --> Store[(State)]
+    C[Client] --> API[FastAPI boundary]
+    API --> CT{Allowed image content type?}
+    CT -->|No| E415[415 Unsupported Media Type]
+    CT -->|Yes| BR[Bounded read: limit + 1 byte]
+    BR --> SZ{Empty / oversized?}
+    SZ -->|Empty| E400[400 Empty payload]
+    SZ -->|Oversized| E413[413 Payload too large]
+    SZ -->|Valid size| IV[Pillow decode + verify]
+    IV -->|Invalid| E422[422 Invalid image]
+    IV -->|Valid| MG{Verified safety model packaged?}
+    MG -->|No in v0.1.0| E503[503 verified_model_unavailable]
+    MG -. future validated integration .-> MODEL[Versioned model + evaluation contract]
+
+    SCORE[External / future confidence score] --> RP[RiskPolicy]
+    RP --> VAL[Finite score in 0..1]
+    VAL --> LOW[LOW]
+    VAL --> MED[MEDIUM]
+    VAL --> HIGH[HIGH]
 ```
 
-### Quickstart and local validation
+The image-validation path and risk-policy path are intentionally distinct. The policy can classify a confidence value, but v0.1.0 does not pretend that such a confidence value came from a verified model.
 
-The supported local path should be reproducible from a clean checkout. The inferred stack for this repository is **Python/platform services**.
+## System design flowchart
+
+```mermaid
+flowchart TD
+    DEV[Developer / reviewer] --> SRC[Source + tests]
+    SRC --> MATRIX[CI: Python 3.10 / 3.11 / 3.12]
+    MATRIX --> LINT[Compile + Ruff]
+    MATRIX --> TEST[50-test suite + coverage gate]
+    TEST --> COV{Coverage >= 85%?}
+    COV -->|No| FAIL[Fail closed]
+    COV -->|Yes| PKG[Build wheel + sdist]
+    PKG --> WHEEL[Fresh-venv wheel install smoke test]
+    WHEEL --> BENCH[Fixed-seed benchmark]
+    BENCH --> JSON[Machine-readable benchmark artifact]
+    JSON --> IMG[Build non-root container]
+    IMG --> LIVE[Smoke /health = 200]
+    LIVE --> READY[Smoke /ready = 503 without model]
+    READY --> SEC[CodeQL]
+    SEC --> REL[Release gate]
+    REL --> ASSETS[Wheel / sdist / source / checksums / SBOM / benchmark]
+    REL --> GHCR[GHCR safesight-ai:0.1.0]
+```
+
+## Quick start
+
+### Prerequisites
+
+- Python 3.10–3.12
+- Git
+- Docker only for the container path
 
 ```bash
-python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
-pytest -q
+# Clone
+git clone https://github.com/CoreyLeath-code/SafeSight-AI.git
+cd SafeSight-AI
+
+# Isolated environment
+python -m venv .venv
+source .venv/bin/activate        # Windows PowerShell: .venv\Scripts\Activate.ps1
+
+# Canonical package + development tooling
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+
+# Run the same correctness gates used by CI
+python -m pytest tests -v \
+  --cov=safesight \
+  --cov-report=term-missing \
+  --cov-fail-under=85
+ruff check safesight tests/test_release_*.py src/detector.py api/main.py app/app/app/core/risk_engine.py
+
+# Start the supported API
+uvicorn safesight.api:app --host 127.0.0.1 --port 8000
 ```
 
-If the project uses external services, model artifacts, cloud credentials, or private data, start them through documented local fixtures or mocks. Never place secrets or identifiable records in the repository.
+In another terminal:
 
-### Research-style metrics and benchmarks
+```bash
+curl -i http://127.0.0.1:8000/health
+curl -i http://127.0.0.1:8000/ready
+```
 
-| Evidence | Required record |
+Expected semantics:
+
+- `/health` → HTTP 200: the process is alive.
+- `/ready` → HTTP 503: no verified safety model is packaged.
+- `/predict` with a valid image → HTTP 503 after request/image validation, rather than a fabricated classification.
+
+### Docker
+
+```bash
+docker build -t safesight-ai:local .
+docker run --rm -p 8000:8000 safesight-ai:local
+```
+
+After v0.1.0 is published:
+
+```bash
+docker pull ghcr.io/coreyleath-code/safesight-ai:0.1.0
+docker run --rm -p 8000:8000 ghcr.io/coreyleath-code/safesight-ai:0.1.0
+```
+
+### One-command evidence reproduction
+
+```bash
+make reproduce
+```
+
+This runs compile/lint, tests + coverage gate, Python package build, and the fixed benchmark protocol.
+
+## Reproducibility contract
+
+SafeSight separates deterministic software evidence from model-quality evidence.
+
+### Correctness protocol
+
+CI runs on Python `3.10`, `3.11`, and `3.12`. Each interpreter must install the canonical package, compile the relevant Python paths, pass Ruff, and run the test suite with an **85% minimum coverage threshold**. Failure of any matrix member blocks the package/container job.
+
+The verified Python 3.11 run produced:
+
+- 50/50 tests passed;
+- 186 canonical package statements measured;
+- 7 statements missed;
+- 96.24% total `safesight` coverage;
+- 85% fail-closed minimum.
+
+### Benchmark protocol
+
+The benchmark asks one narrow engineering question:
+
+> On a documented CI runner, how long does the deterministic `RiskPolicy` take to classify the same fixed set of synthetic confidence values?
+
+Fixed protocol:
+
+- seed: `20260828`;
+- confidence values per iteration: `10,000`;
+- warm-ups: `5`;
+- measured iterations: `50`;
+- total measured classifications: `500,000`;
+- medium threshold: `0.60`;
+- high threshold: `0.85`;
+- timer: `time.perf_counter_ns()`;
+- memory: Python `tracemalloc` peak;
+- machine-readable source of record: [`benchmarks/latest.json`](benchmarks/latest.json);
+- reference CI run: [`33200052693`](https://github.com/CoreyLeath-code/SafeSight-AI/actions/runs/33200052693).
+
+The benchmark excludes image decoding, model inference, HTTP/network overhead, concurrent clients, GPU/accelerator behavior, external services, and real-world safety/model quality.
+
+## Research-style benchmarks and metrics
+
+| Measurement | Verified reference value |
+|---|---:|
+| Tests | 50/50 passed |
+| Python matrix | 3.10 / 3.11 / 3.12 passed |
+| Canonical package coverage | 96.24% |
+| Coverage gate | 85% fail-closed |
+| Median / 10,000 policy classifications | 37.725465 ms |
+| p95 / 10,000 policy classifications | 38.247523 ms |
+| p99 / 10,000 policy classifications | 38.320200 ms |
+| Derived classifications / second | 264,728.683 |
+| Peak traced Python memory | 0.002338 MiB |
+| Seeded LOW count | 6,025 |
+| Seeded MEDIUM count | 2,441 |
+| Seeded HIGH count | 1,534 |
+
+Reference environment: Python `3.11.16`, `Linux-6.17.0-1022-azure-x86_64-with-glibc2.39`, package `0.1.0`; benchmark provenance is embedded in the JSON artifact.
+
+These timings are development measurements, **not SLAs**. The seeded class counts verify deterministic threshold behavior only; they do not prove that the thresholds are optimal or safe for any deployment.
+
+See [`METRICS.md`](METRICS.md) for the evidence table and model-quality gap analysis.
+
+## Model-quality status
+
+The previous repository documentation contained accuracy, precision, recall, F1, inference latency, throughput, CUDA, model-size, and GPU claims that were not tied to a reviewed model artifact, dataset protocol, or reproducible evaluation path. Those values are not part of the v0.1.0 evidence contract.
+
+For a future model-backed release, the minimum evidence should include:
+
+1. immutable model artifact + SHA-256 digest;
+2. dataset provenance and license;
+3. versioned evaluation fixture/dataset;
+4. explicit train/validation/test or external-evaluation protocol;
+5. leakage controls;
+6. per-class precision/recall/F1 and confusion matrix;
+7. calibration and threshold-selection evidence;
+8. scenario/subgroup error analysis where appropriate;
+9. representative image-inference latency/throughput with hardware and batch/concurrency settings;
+10. intended-use, excluded-use, and human-review boundaries.
+
+Until that evidence exists, model quality is **TBD**, not inferred from architecture or placeholder numbers.
+
+## Failure and safety semantics
+
+| Condition | Behavior |
 |---|---|
-| Correctness | Test command, commit SHA, runtime, and pass/fail result |
-| Performance | Warm-up, sample count, concurrency, median, p95, p99, throughput, and memory |
-| Data/model quality | Dataset version, split strategy, leakage controls, calibration, subgroup results, and uncertainty |
-| Runtime | Image digest, health-check latency, resource limits, and rollback target |
-| Security | Dependency, secret, SAST, container, and SBOM results |
+| Process alive | `/health` returns 200 |
+| No verified model | `/ready` returns 503 |
+| Unsupported media type | `/predict` returns 415 |
+| Empty upload | `/predict` returns 400 |
+| Upload exceeds configured byte limit | `/predict` returns 413 |
+| Claimed image cannot be decoded | `/predict` returns 422 |
+| Valid image but no verified model | `/predict` returns 503 |
+| Invalid risk-policy confidence/threshold | raises `ValueError`; no silent coercion |
 
-A benchmark number belongs in a versioned artifact tied to a commit and hardware/runtime description. Engineering benchmarks must not be presented as clinical, financial, safety, or model-quality validation without the appropriate domain evidence.
+A healthy process is not treated as a model-ready service. That distinction is intentional and container-tested.
 
-### Extended Q&A
+## Release and package contract
 
-**What is production-ready for this repository?**  
-A reproducible build, tested public contract, controlled configuration, observable runtime, documented security boundary, versioned artifacts, and a tested rollback path.
+v0.1.0 is published only after the release commit reruns compilation, lint, tests, the 85% coverage gate, Python distribution build, and the fixed benchmark. The workflow then creates:
 
-**What must remain explicit?**  
-The intended use, excluded use, data/credential handling, model or algorithm limitations, and which metrics are measured versus aspirational.
+- `safesight_ai-0.1.0-py3-none-any.whl`;
+- `safesight_ai-0.1.0.tar.gz`;
+- deterministic Git source archive;
+- `benchmark-results.json`;
+- `SHA256SUMS`;
+- `sbom.cdx.json` CycloneDX SBOM;
+- GitHub Release `v0.1.0`;
+- `ghcr.io/coreyleath-code/safesight-ai:0.1.0`;
+- `ghcr.io/coreyleath-code/safesight-ai:latest`.
 
-**What should be completed next?**  
-Use the linked production-readiness issue for this repository as the checklist. Resolve missing tests, deployment instructions, observability, supply-chain controls, and release evidence before attaching a production claim.
+The release workflow pulls and smoke-tests the published GHCR image before creating the immutable version tag/release.
 
+## L6 audit findings addressed
+
+The hardening pass prioritizes correctness and claim integrity over impressive wording. It:
+
+- replaces “production-grade CV system” claims with an evidence-bounded release contract;
+- removes unsupported model-quality/CUDA/throughput claims from release documentation;
+- establishes one canonical `safesight` package instead of treating legacy folders as equally supported;
+- keeps `api.main:app` as a compatibility shim while making `safesight.api:app` canonical;
+- separates liveness from model readiness;
+- bounds upload reads before accepting arbitrarily large request bodies;
+- verifies image bytes rather than trusting filename/content type alone;
+- preserves fail-closed `503` behavior when no model exists;
+- validates confidence values and policy thresholds for finite `[0,1]` domains;
+- makes the legacy detector’s synthetic nature explicit and makes its threshold actually functional;
+- removes an accidental Flask dependency from canonical risk-policy testing;
+- upgrades CI from one Python version / basic pytest to a fail-closed 3-version evidence pipeline;
+- adds real package, benchmark, container, CodeQL, SBOM, checksum, release, and GHCR gates.
+
+## Extended Q&A
+
+### Is SafeSight v0.1.0 a production safety system?
+
+No. It is a portfolio/reference implementation demonstrating safer software boundaries around a future model-backed service. It is not production-authorized and is not evidence that injuries, hazards, PPE violations, or other safety events can be detected reliably.
+
+### Does SafeSight v0.1.0 perform computer-vision inference?
+
+No verified model is packaged. Valid images are decoded and validated, then the API returns HTTP 503. This is intentional: returning a plausible-looking LOW/HIGH prediction without a verified artifact would be less safe and less honest.
+
+### Why does `/health` return 200 while `/ready` returns 503?
+
+They answer different questions. `/health` means the web process can respond. `/ready` means the service has the required inference capability for its intended model-backed role. Because v0.1.0 lacks that model, readiness fails closed.
+
+### What does `RiskPolicy` actually do?
+
+It maps an already-produced confidence score into LOW, MEDIUM, or HIGH using validated thresholds. Defaults are MEDIUM at `0.60` and HIGH at `0.85`. It rejects NaN, infinity, values outside `[0,1]`, empty prediction rows, and invalid threshold ordering.
+
+### Is the risk policy proof that those thresholds are safe?
+
+No. The tests prove deterministic software behavior at the chosen boundaries. They do not establish optimal decision thresholds for a real safety domain. Threshold selection would require representative labeled data, calibration/error-cost analysis, and domain review.
+
+### Is `src/detector.py` a computer-vision detector?
+
+No. It is now explicitly documented as a deterministic synthetic-event fixture used to exercise downstream logic. Its configured threshold is validated and applied, but its events are hard-coded test/demo data.
+
+### What happened to TensorFlow/PyTorch/CUDA claims?
+
+They are outside the v0.1.0 supported surface. A repository can contain experiments or old code without proving that a particular framework, GPU path, or model is part of a validated release. v0.1.0 claims only what CI and the release artifacts exercise.
+
+### Does this release use Llama 3 or another LLM?
+
+No. A legacy experimental file references a Llama model and optional transformer dependencies, but that path is not installed, executed, or validated by the v0.1.0 release. It is not part of the supported package contract.
+
+### Why benchmark the risk policy instead of inference?
+
+Because the risk policy is executable and deterministic while verified inference is unavailable. Benchmarking a nonexistent model path would produce fictional evidence. The policy benchmark is narrow, reproducible, and explicitly labeled as such.
+
+### Are 264k classifications/second the API throughput?
+
+No. That number is derived from an in-process Python policy microbenchmark over seeded floats. It excludes HTTP, image handling, model inference, concurrency, and network I/O. It must not be quoted as request throughput or safety-detection throughput.
+
+### What does 96.24% coverage mean?
+
+It means the validated CI run executed 179 of 186 measured statements in the canonical `safesight` package according to `coverage.py`. Coverage is not proof of correctness, security, or model quality; it is one test-evidence signal enforced with an 85% minimum gate.
+
+### Why keep compatibility/legacy directories?
+
+They preserve earlier experiments and import paths while the supported surface is normalized. Presence in the repository is not equivalent to release support. The `safesight/` package and documented workflows define the v0.1.0 contract.
+
+### How are oversized uploads handled?
+
+The API reads at most the configured limit plus one byte. If that extra byte exists, it returns 413. This avoids the previous pattern of reading the entire request body before checking its size.
+
+### Can content type alone prove a file is an image?
+
+No. The API first checks an allowlisted media type, then uses Pillow to decode/verify the actual bytes. Spoofed `image/jpeg` content that cannot be decoded receives 422.
+
+### What is in the Python package?
+
+The supported package contains the FastAPI application, deterministic risk policy, image validation, and benchmark harness. The wheel is built and installed into a fresh virtual environment in CI before the container stage.
+
+### What is in the container package?
+
+The GHCR image runs the canonical FastAPI service as a non-root user. CI verifies process liveness and the expected fail-closed readiness behavior. It does not contain a verified CV model in v0.1.0.
+
+### What evidence should a reviewer inspect first?
+
+Start with `safesight/api.py`, `safesight/policy.py`, `tests/`, `.github/workflows/ci.yml`, `.github/workflows/release.yml`, `benchmarks/latest.json`, and `METRICS.md`. Those define the supported behavior and claim boundaries more accurately than legacy experiments.
+
+### What should be built next?
+
+The highest-value next step is not adding more architecture buzzwords. It is introducing a versioned, licensed evaluation dataset and a reviewed immutable model artifact, then building a reproducible evaluation harness with calibration/error analysis. After that, measure representative image-inference and API behavior separately, including concurrency, resource saturation, and failure scenarios.
+
+## Engineering roadmap
+
+- **v0.1.x:** strengthen property/invariant tests, tighten dependency/release provenance, and remove or quarantine more stale legacy paths.
+- **v0.2:** add a hashed fixture dataset and model-artifact loading contract without claiming quality until evaluation is reproducible.
+- **v0.3:** add model evaluation, calibration, per-class error analysis, representative inference benchmarks, and explicit model-card evidence.
+- **Later:** add observability, concurrency/load testing, authenticated deployment boundaries, rollback exercises, and deployment-specific SLOs only after those paths are measured end-to-end.
+
+## License
+
+MIT. See [`LICENSE`](LICENSE).

@@ -1,0 +1,30 @@
+{
+  "deterministic_result_snapshot": {
+    "HIGH": 1534,
+    "LOW": 6025,
+    "MEDIUM": 2441
+  },
+  "environment": {
+    "git_sha": "3b97d3cee729a1284807fab8822b0898df562cef",
+    "package_version": "0.1.0",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.11.16"
+  },
+  "interpretation": "Development benchmark only. Excludes model inference, image decoding, HTTP/network overhead, concurrency, accelerator behavior, and any claim about real-world safety or model quality.",
+  "performance": {
+    "decisions_per_second": 264728.683,
+    "median_ms": 37.725465,
+    "p95_ms": 38.247523,
+    "p99_ms": 38.3202,
+    "peak_traced_memory_mib": 0.002338
+  },
+  "protocol": {
+    "high_threshold": 0.85,
+    "measured_iterations": 50,
+    "medium_threshold": 0.6,
+    "samples_per_iteration": 10000,
+    "scope": "in-process deterministic risk-policy classification of seeded synthetic confidence scores",
+    "seed": 20260828,
+    "warmups": 5
+  }
+}
