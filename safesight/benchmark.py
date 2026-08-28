@@ -8,7 +8,6 @@ import os
 import platform
 import random
 import statistics
-import sys
 import time
 import tracemalloc
 from pathlib import Path
@@ -90,7 +89,10 @@ def run_benchmark(
             "warmups": warmups,
             "medium_threshold": policy.medium_threshold,
             "high_threshold": policy.high_threshold,
-            "scope": "in-process deterministic risk-policy classification of seeded synthetic confidence scores",
+            "scope": (
+                "in-process deterministic risk-policy classification of seeded "
+                "synthetic confidence scores"
+            ),
         },
         "performance": {
             "median_ms": round(median_ms, 6),
@@ -107,8 +109,9 @@ def run_benchmark(
             "package_version": __version__,
         },
         "interpretation": (
-            "Development benchmark only. Excludes model inference, image decoding, HTTP/network overhead, "
-            "concurrency, accelerator behavior, and any claim about real-world safety or model quality."
+            "Development benchmark only. Excludes model inference, image decoding, "
+            "HTTP/network overhead, concurrency, accelerator behavior, and any claim "
+            "about real-world safety or model quality."
         ),
     }
 
