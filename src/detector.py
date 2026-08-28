@@ -4,8 +4,6 @@ This is not a computer-vision detector. It exists only to exercise downstream
 alerting behavior without fabricating model-backed detections.
 """
 
-from __future__ import annotations
-
 import math
 import os
 from typing import Any
