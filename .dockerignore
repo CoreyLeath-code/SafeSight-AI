@@ -22,6 +22,7 @@ ENV/
 # Test artifacts
 .pytest_cache/
 .coverage
+coverage.xml
 htmlcov/
 .tox/
 
@@ -36,9 +37,10 @@ htmlcov/
 .env.*
 !.env.example
 
-# Documentation
+# Documentation (README remains required by pyproject metadata during image build)
 docs/
 *.md
+!README.md
 
 # Logs
 *.log
