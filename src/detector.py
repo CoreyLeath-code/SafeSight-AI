@@ -6,10 +6,8 @@ alerting behavior without fabricating model-backed detections.
 
 import math
 import os
-from typing import Any
 
-
-_SYNTHETIC_EVENTS: tuple[dict[str, Any], ...] = (
+_SYNTHETIC_EVENTS: tuple[dict[str, object], ...] = (
     {"zone": "Warehouse A", "risk": 0.82, "type": "Slip Hazard"},
     {"zone": "Site B", "risk": 0.91, "type": "No PPE"},
 )
@@ -28,6 +26,6 @@ class SafetyDetector:
             raise ValueError("DETECTION_THRESHOLD must be a finite number in [0, 1]")
         self.threshold = threshold
 
-    def run_detection(self) -> list[dict[str, Any]]:
+    def run_detection(self) -> list[dict[str, object]]:
         """Return copies of synthetic events meeting the configured threshold."""
-        return [dict(event) for event in _SYNTHETIC_EVENTS if event["risk"] >= self.threshold]
+        return [dict(event) for event in _SYNTHETIC_EVENTS if float(event["risk"]) >= self.threshold]
