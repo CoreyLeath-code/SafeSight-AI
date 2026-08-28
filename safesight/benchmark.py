@@ -10,8 +10,8 @@ import random
 import statistics
 import time
 import tracemalloc
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from . import __version__
 from .policy import RiskLevel, RiskPolicy
