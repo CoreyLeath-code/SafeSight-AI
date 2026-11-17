@@ -68,7 +68,7 @@ jobs:
             --iterations 50 \
             --warmups 5 \
             --output benchmark-results.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: safesight-benchmark
           path: benchmark-results.json
